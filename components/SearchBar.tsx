@@ -8,6 +8,7 @@ export default function SearchBar() {
         placeholder="Search"
         onChangeText={setSearchQuery}
         value={searchQuery}
+        elevation={2}
     />
   )
 }

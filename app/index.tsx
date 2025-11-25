@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
   },
   search: {
     padding: 16,
-    backgroundColor: "green",
   },
   list: {
     flex: 1,

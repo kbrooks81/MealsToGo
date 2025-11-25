@@ -1,13 +1,14 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import SearchBar from "../components/SearchBar";
 
 export default function Index() {
   return (
     <>
       <SafeAreaView style={styles.safeArea} edges={["top", "bottom"]}>
         <View style={styles.search}>
-          <Text>Search</Text>
+          <SearchBar />
         </View>
         <View style={styles.list}>
           <Text>List</Text>

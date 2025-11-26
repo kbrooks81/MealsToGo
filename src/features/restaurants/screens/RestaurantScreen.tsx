@@ -7,11 +7,11 @@ import RestaurantInfoCard from "../components/RestaurantInfoCard";
 const RestaurantScreen = () => {
   return (
     <>
-      <SafeAreaView className="flex-1 bg-slate-300" edges={["top", "bottom"]}>
-        <View className="p-4">
+      <SafeAreaView className="flex-1 bg-bg-secondary" edges={["top", "bottom"]}>
+        <View className="p-md">
           <SearchBar />
         </View>
-        <View className="flex-1 p-5">
+        <View className="flex-1 p-md">
           <RestaurantInfoCard />
         </View>
       </SafeAreaView>

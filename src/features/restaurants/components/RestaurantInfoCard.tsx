@@ -14,11 +14,11 @@ const RestaurantInfoCard = ({ restaurant = {} }: any) => {
   } = restaurant;
 
   return (
-    <View className='bg-white mb-4 p-4 rounded-lg shadow-lg overflow-hidden'>
-      <Image source={{ uri: photos[0] }} className='w-full h-52 rounded-lg' />
-      <View className='p-4'>
-        <Text className='text-lg font-semibold mb-1'>{name}</Text>
-        <Text className='text-base text-gray-600'>{address}</Text>
+    <View className='bg-bg-primary mb-md p-md rounded-lg shadow-lg overflow-hidden'>
+      <Image source={{ uri: photos[0] }} className='w-full h-xl rounded-lg' />
+      <View className='p-sm'>
+        <Text className='text-primary text-lg font-body font-semibold mb-xs'>{name}</Text>
+        <Text className='text-base text-secondary font-monospace'>{address}</Text>
       </View>
     </View>
   );

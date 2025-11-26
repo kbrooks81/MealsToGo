@@ -16,10 +16,12 @@ const RestaurantInfoCard = ({ restaurant = {} }: any) => {
   return (
     <View className='bg-bg-primary mb-md p-md rounded-lg shadow-lg overflow-hidden'>
       <Image source={{ uri: photos[0] }} className='w-full h-xl rounded-lg' />
+
       <View className='p-sm'>
-        <Text className='text-primary text-lg font-body font-semibold mb-xs'>{name}</Text>
-        <Text className='text-base text-secondary font-monospace'>{address}</Text>
+        <Text className='color-text-primary text-body font-heading mb-sm'>{name}</Text>
+        <Text className='text-caption font-body'>{address}</Text>
       </View>
+      
     </View>
   );
 };

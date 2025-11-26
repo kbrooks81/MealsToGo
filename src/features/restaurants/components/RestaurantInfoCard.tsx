@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 const RestaurantInfoCard = ({ restaurant = {} }: any) => {
   const {
@@ -14,46 +14,14 @@ const RestaurantInfoCard = ({ restaurant = {} }: any) => {
   } = restaurant;
 
   return (
-    <View style={styles.card}>
-      <Image source={{ uri: photos[0] }} style={styles.cover} />
-
-      <View style={styles.info}>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.address}>{address}</Text>
+    <View className='bg-white mb-4 p-4 rounded-lg shadow-lg overflow-hidden'>
+      <Image source={{ uri: photos[0] }} className='w-full h-52 rounded-lg' />
+      <View className='p-4'>
+        <Text className='text-lg font-semibold mb-1'>{name}</Text>
+        <Text className='text-base text-gray-600'>{address}</Text>
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: 'white',
-    marginBottom: 16,
-    padding: 8,
-    borderRadius: 8,
-    overflow: 'hidden',
-    elevation: 3, // Android shadow
-    shadowColor: '#000', // iOS shadow
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-  },
-  cover: {
-    width: '100%',
-    height: 180,
-    borderRadius: 8,
-  },
-  info: {
-    padding: 16,
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 4,
-  },
-  address: {
-    fontSize: 14,
-    color: '#666',
-  },
-});
 
 export default RestaurantInfoCard;

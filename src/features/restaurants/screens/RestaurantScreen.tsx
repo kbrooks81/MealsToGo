@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SearchBar from "../../../../components/SearchBar";
 import RestaurantInfoCard from "../components/RestaurantInfoCard";
@@ -7,29 +7,16 @@ import RestaurantInfoCard from "../components/RestaurantInfoCard";
 const RestaurantScreen = () => {
   return (
     <>
-      <SafeAreaView style={styles.safeArea} edges={["top", "bottom"]}>
-        <View style={styles.search}>
+      <SafeAreaView className="flex-1 bg-slate-300" edges={["top", "bottom"]}>
+        <View className="p-4">
           <SearchBar />
         </View>
-        <View style={styles.list}>
+        <View className="flex-1 p-5">
           <RestaurantInfoCard />
         </View>
       </SafeAreaView>
     </>
   )
 }
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-  },
-  search: {
-    padding: 16,
-  },
-  list: {
-    flex: 1,
-    padding: 16,
-  }
-});
 
 export default RestaurantScreen

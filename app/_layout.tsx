@@ -14,7 +14,7 @@ export default function RootLayout() {
           }}
         />
       </SafeAreaProvider>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
     </>
   );
 }

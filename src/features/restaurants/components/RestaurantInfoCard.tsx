@@ -1,5 +1,7 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
+import { SvgXml } from 'react-native-svg';
+import star from '../../../../assets/images/star';
 
 const RestaurantInfoCard = ({ restaurant = {} }: any) => {
   const {
@@ -13,15 +15,22 @@ const RestaurantInfoCard = ({ restaurant = {} }: any) => {
     rating = 4,
   } = restaurant;
 
+  const ratingArray = Array.from(new Array(Math.floor(rating)));
+
   return (
     <View className='bg-bg-primary mb-md p-md rounded-lg shadow-lg overflow-hidden'>
       <Image source={{ uri: photos[0] }} className='w-full h-xl rounded-lg' />
 
       <View className='p-sm'>
-        <Text className='color-text-primary text-body font-heading mb-sm'>{name}</Text>
+        <Text className='color-text-primary text-body font-heading mt-xs'>{name}</Text>
+        
+        <View className='flex-row items-center pt-xs pb-xs'>
+          {ratingArray.map((_, index) => (<SvgXml key={index} xml={star} width={20} height={20} />))}
+        </View>
+
         <Text className='text-caption font-body'>{address}</Text>
       </View>
-      
+
     </View>
   );
 };

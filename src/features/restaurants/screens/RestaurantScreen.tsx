@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { FlatList, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SearchBar from "../../../../components/SearchBar";
 import RestaurantInfoCard from "../components/RestaurantInfoCard";
@@ -12,7 +12,12 @@ const RestaurantScreen = () => {
           <SearchBar />
         </View>
         <View className="flex-1 p-md">
-          <RestaurantInfoCard />
+          <FlatList
+            data={[{ name: "Restaurant 1" }, { name: "Restaurant 2" }, { name: "Restaurant 3" }]}
+            renderItem={()=> <RestaurantInfoCard />}
+            keyExtractor={(item) => item.name}
+            contentContainerStyle={{ padding: 16}}
+          />
         </View>
       </SafeAreaView>
     </>

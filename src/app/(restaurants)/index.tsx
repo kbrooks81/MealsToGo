@@ -1,10 +1,10 @@
 import React from "react";
 import { FlatList, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SearchBar from "../../../../components/SearchBar";
-import RestaurantInfoCard from "../components/RestaurantInfoCard";
+import RestaurantInfoCard from "../../../components/RestaurantInfoCard";
+import SearchBar from "../../../components/SearchBar";
 
-const RestaurantScreen = () => {
+export default function Index() {
   return (
     <>
       <SafeAreaView className="flex-1 bg-bg-secondary" edges={["top", "bottom"]}>
@@ -23,5 +23,3 @@ const RestaurantScreen = () => {
     </>
   )
 }
-
-export default RestaurantScreen

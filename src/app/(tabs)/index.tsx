@@ -11,7 +11,7 @@ export default function Index() {
         <View className="p-md">
           <SearchBar />
         </View>
-        <View className="flex-1 p-md">
+        <View className="flex-1 pl-sm pr-sm pt-sm">
           <FlatList
             data={[{ name: "Restaurant 1" }, { name: "Restaurant 2" }, { name: "Restaurant 3" }]}
             renderItem={()=> <RestaurantInfoCard />}

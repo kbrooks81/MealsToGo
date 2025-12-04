@@ -14,14 +14,13 @@ export default function RootLayout() {
   });
 
   if (!fontsLoaded) return null;
-  
+
   return (
     <>
       <SafeAreaProvider>
         <Stack 
           screenOptions={{
             headerShown: false,
-            contentStyle: { backgroundColor: "white" },
           }}
         />
       </SafeAreaProvider>

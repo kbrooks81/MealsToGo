@@ -6,6 +6,7 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import "./globals.css";
+import { RestaurantsContextProvider } from "../../services/restaurants/restaurants.context";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -17,14 +18,16 @@ export default function RootLayout() {
 
   return (
     <>
-      <SafeAreaProvider>
-        <Stack 
-          screenOptions={{
-            headerShown: false,
-          }}
-        />
-      </SafeAreaProvider>
-      <StatusBar style="dark" />
+    <RestaurantsContextProvider>
+        <SafeAreaProvider>
+          <Stack 
+            screenOptions={{
+              headerShown: false,
+            }}
+          />
+        </SafeAreaProvider>
+    </RestaurantsContextProvider>
+    <StatusBar style="dark" />
     </>
   );
 }

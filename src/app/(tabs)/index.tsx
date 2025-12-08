@@ -1,17 +1,17 @@
 import React from "react";
 import { FlatList, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SearchBar from "../../../../components/SearchBar";
-import RestaurantInfoCard from "../components/RestaurantInfoCard";
+import RestaurantInfoCard from "../../../components/RestaurantInfoCard";
+import SearchBar from "../../../components/SearchBar";
 
-const RestaurantScreen = () => {
+export default function Index() {
   return (
     <>
       <SafeAreaView className="flex-1 bg-bg-secondary" edges={["top", "bottom"]}>
         <View className="p-md">
           <SearchBar />
         </View>
-        <View className="flex-1 p-md">
+        <View className="flex-1 pl-sm pr-sm pt-sm">
           <FlatList
             data={[{ name: "Restaurant 1" }, { name: "Restaurant 2" }, { name: "Restaurant 3" }]}
             renderItem={()=> <RestaurantInfoCard />}
@@ -23,5 +23,3 @@ const RestaurantScreen = () => {
     </>
   )
 }
-
-export default RestaurantScreen

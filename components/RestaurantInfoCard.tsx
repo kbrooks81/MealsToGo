@@ -1,9 +1,9 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-import close from '../../../../assets/images/close';
-import open from '../../../../assets/images/open';
-import star from '../../../../assets/images/star';
+import close from '../assets/images/close';
+import open from '../assets/images/open';
+import star from '../assets/images/star';
 
 const RestaurantInfoCard = ({ restaurant = {} }: any) => {
   const {

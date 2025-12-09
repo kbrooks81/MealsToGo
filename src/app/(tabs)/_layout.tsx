@@ -8,7 +8,7 @@ const _layout = () => {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "tomato",
+        tabBarActiveTintColor: "#5282BD",
         tabBarInactiveTintColor: "gray",
       }}
     >

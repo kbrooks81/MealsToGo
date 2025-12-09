@@ -13,18 +13,21 @@ export const RestaurantsContextProvider = ({ children }) => {
         setIsLoading(true);
         setRestaurants([]);
 
-        restaurantsRequest(location)
-            .then(restaurantsTransform)
-            .then((results) => {
-                setRestaurants(results);
-            })
-            .catch((err) => {
-                console.error("MOCK RESTAURANTS ERROR:", err);
-                setError(err);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
+        setTimeout(() => {
+            restaurantsRequest(location)
+                .then(restaurantsTransform)
+                .then((results) => {
+                    setRestaurants(results);
+                })
+                .catch((err) => {
+                    console.error("MOCK RESTAURANTS ERROR:", err);
+                    setError(err);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        }, 2000);
+
     };
 
     useEffect(() => {

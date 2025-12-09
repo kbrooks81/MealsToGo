@@ -7,6 +7,7 @@ import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import "./globals.css";
 import { RestaurantsContextProvider } from "../../services/restaurants/restaurants.context";
+import { LocationContextProvider } from "../../services/location/location.context";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -18,16 +19,18 @@ export default function RootLayout() {
 
   return (
     <>
-    <RestaurantsContextProvider>
-        <SafeAreaProvider>
-          <Stack 
-            screenOptions={{
-              headerShown: false,
-            }}
-          />
-        </SafeAreaProvider>
-    </RestaurantsContextProvider>
-    <StatusBar style="dark" />
+      <LocationContextProvider>
+        <RestaurantsContextProvider>
+            <SafeAreaProvider>
+              <Stack 
+                screenOptions={{
+                  headerShown: false,
+                }}
+              />
+            </SafeAreaProvider>
+        </RestaurantsContextProvider>
+        <StatusBar style="dark" />
+      </LocationContextProvider>
     </>
   );
 }

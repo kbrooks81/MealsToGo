@@ -9,7 +9,7 @@ export const RestaurantsContextProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const retrieveRestaurants = (location = "51.219448,4.402464") => {
+    const retrieveRestaurants = (location = "41.878113,-87.629799") => {
         setIsLoading(true);
         setRestaurants([]);
 

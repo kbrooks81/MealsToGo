@@ -25,7 +25,7 @@ const RestaurantInfoCard = ({ restaurant = {} }: any) => {
       <View className='p-sm'>
         <Text className='color-text-primary text-body font-heading mt-xs'>{name}</Text>
         
-        <View className="flex-row justify-between items-center">
+        <View className="flex-row justify-between items-center mt-sm">
             <View className="flex-row">
                 {ratingArray.map((_, index) => (
                     <SvgXml key={index} xml={star} width={20} height={20} />

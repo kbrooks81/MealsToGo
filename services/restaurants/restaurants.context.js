@@ -1,6 +1,7 @@
 // services/restaurants/restaurants.context.js
 import React, { createContext, useState, useEffect } from "react";
 import { restaurantsRequest, restaurantsTransform } from "./restaurants.service";
+import { LocationContext } from "../location/location.context";
 
 export const RestaurantsContext = createContext();
 
@@ -9,34 +10,36 @@ export const RestaurantsContextProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const retrieveRestaurants = (location = "41.878113,-87.629799") => {
+    const {location} = React.useContext(LocationContext);
+
+    const retrieveRestaurants = (loc) => {
         setIsLoading(true);
         setRestaurants([]);
 
-        setTimeout(() => {
-            restaurantsRequest(location)
-                .then(restaurantsTransform)
-                .then((results) => {
-                    setRestaurants(results);
-                })
-                .catch((err) => {
-                    console.error("MOCK RESTAURANTS ERROR:", err);
-                    setError(err);
-                })
-                .finally(() => {
-                    setIsLoading(false);
-                });
-        }, 2000);
+        restaurantsRequest(loc)
+            .then(restaurantsTransform)
+            .then((results) => {
+                setRestaurants(results);
+            })
+            .catch((err) => {
+                console.error("MOCK RESTAURANTS ERROR:", err);
+                setError(err);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
 
     };
 
     useEffect(() => {
-        retrieveRestaurants();
-    }, []);
+        if (!location) return;
+        const locationString = `${location.lat},${location.lng}`;
+        retrieveRestaurants(locationString);
+    }, [location]);
 
     return (
         <RestaurantsContext.Provider
-            value={{ restaurants, isLoading, error, refresh: retrieveRestaurants }}
+            value={{ restaurants, isLoading, error }}
         >
             {children}
         </RestaurantsContext.Provider>

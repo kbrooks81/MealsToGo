@@ -5,10 +5,26 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import RestaurantInfoCard from "@/components/RestaurantInfoCard";
 import SearchBar from "@/components/SearchBar";
 import { ActivityIndicator } from "react-native-paper";
+import { useRouter } from "expo-router";
 
 
 export default function Index() {
-  const { isLoading, error, restaurants } = useContext(RestaurantsContext);
+  const { isLoading, restaurants } = useContext(RestaurantsContext);
+  const router = useRouter();
+
+  const handleRestaurantPress = (restaurant: any) => {
+
+    const { lat, lng } = restaurant.geometry.location;
+    
+    router.push({
+      pathname: '/(tabs)/maps',
+      params: {
+        lat: String(lat),
+        lng: String(lng),
+        name: restaurant.name,
+      },
+    });
+  };
 
   return (
     <>
@@ -26,7 +42,7 @@ export default function Index() {
           <FlatList
             data={restaurants}
             renderItem={({item}) => {
-              return <RestaurantInfoCard restaurant={item} />
+              return <RestaurantInfoCard restaurant={item} onPress={() => handleRestaurantPress(item)} />
             }}
             keyExtractor={(item) => item.name}
             contentContainerStyle={{ padding: 16 }}

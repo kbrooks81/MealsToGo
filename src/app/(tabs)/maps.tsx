@@ -1,7 +1,6 @@
-// src/app/(tabs)/maps.tsx
 import React, { useContext } from "react";
 import { View, ActivityIndicator } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, Region } from "react-native-maps";
 import { useLocalSearchParams } from "expo-router";
 import { LocationContext } from "@/services/location/location.context";
 import { RestaurantsContext } from "@/services/restaurants/restaurants.context";
@@ -10,20 +9,26 @@ export default function MapScreen() {
   const { location } = useContext(LocationContext);
   const { restaurants, isLoading } = useContext(RestaurantsContext);
 
-  // params from router when user taps a specific restaurant
   const params = useLocalSearchParams<{
     lat?: string;
     lng?: string;
     name?: string;
   }>();
 
-  const selectedLat = params.lat ? parseFloat(params.lat as string) : undefined;
-  const selectedLng = params.lng ? parseFloat(params.lng as string) : undefined;
-  const selectedName = (params.name as string) || "Selected restaurant";
-  const hasSelectedRestaurant = selectedLat != null && selectedLng != null;
+  const selectedLat = params.lat ? Number(params.lat) : NaN;
+  const selectedLng = params.lng ? Number(params.lng) : NaN;
+  const selectedName =
+    typeof params.name === "string" ? params.name : "Selected restaurant";
 
-  // still loading location / restaurants?
-  if (!location || isLoading) {
+  const hasSelectedRestaurant =
+    Number.isFinite(selectedLat) && Number.isFinite(selectedLng);
+
+  const hasCityLocation =
+    location &&
+    Number.isFinite(location.lat) &&
+    Number.isFinite(location.lng);
+
+  if (isLoading || (!hasSelectedRestaurant && !hasCityLocation)) {
     return (
       <View className="flex-1 items-center justify-center bg-bg-primary">
         <ActivityIndicator />
@@ -31,22 +36,30 @@ export default function MapScreen() {
     );
   }
 
-  // CENTER of the map:
-  // - if we have a selected restaurant, center on it
-  // - otherwise center on the city location from LocationContext
-  const centerLat = hasSelectedRestaurant ? selectedLat! : location.lat;
-  const centerLng = hasSelectedRestaurant ? selectedLng! : location.lng;
+  const centerLat = hasSelectedRestaurant
+    ? selectedLat
+    : (location!.lat as number);
 
-  // changing this key forces MapView to remount with new initialRegion
-  const mapKey = `${centerLat}-${centerLng}-${hasSelectedRestaurant ? "one" : "all"}`;
+  const centerLng = hasSelectedRestaurant
+    ? selectedLng
+    : (location!.lng as number);
 
-  // MARKERS:
+  const latitudeDelta = hasSelectedRestaurant ? 0.01 : 0.02;
+  const longitudeDelta = hasSelectedRestaurant ? 0.01 : 0.02;
+
+  const region: Region = {
+    latitude: centerLat,
+    longitude: centerLng,
+    latitudeDelta,
+    longitudeDelta,
+  };
+
   const markers = hasSelectedRestaurant
     ? [
         {
           key: selectedName,
-          latitude: selectedLat!,
-          longitude: selectedLng!,
+          latitude: selectedLat,
+          longitude: selectedLng,
           name: selectedName,
         },
       ]
@@ -59,16 +72,7 @@ export default function MapScreen() {
 
   return (
     <View style={{ flex: 1 }}>
-      <MapView
-        key={mapKey}
-        style={{ flex: 1 }}
-        initialRegion={{
-          latitude: centerLat,
-          longitude: centerLng,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
-        }}
-      >
+      <MapView style={{ flex: 1 }} region={region}>
         {markers.map((m: any) => (
           <Marker
             key={m.key}

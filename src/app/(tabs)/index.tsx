@@ -12,13 +12,11 @@ export default function Index() {
   const router = useRouter();
 
   const handleRestaurantPress = (restaurant: any) => {
-    const { lat, lng } = restaurant.geometry.location;
-
     router.push({
       pathname: "/(tabs)/maps",
       params: {
-        lat: String(lat),
-        lng: String(lng),
+        lng: restaurant.geometry.location.lng,
+        lat: restaurant.geometry.location.lat,
         name: restaurant.name,
       },
     });

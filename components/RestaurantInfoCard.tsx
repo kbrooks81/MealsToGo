@@ -18,7 +18,7 @@ const RestaurantInfoCard = ({ restaurant = {}, onPress, }: RestaurantInfoCardPro
     photos = [
       "https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg"
     ],
-    address = '100 Some Random Street',
+    vicinity = '100 Some Random Street',
     isOpenNow = false,
     rating = 4,
   } = restaurant;
@@ -50,7 +50,7 @@ const RestaurantInfoCard = ({ restaurant = {}, onPress, }: RestaurantInfoCardPro
           </View>
 
 
-          <Text className='text-caption font-body'>{address}</Text>
+          <Text className='text-caption font-body'>{vicinity}</Text>
         </View>
 
       </View>

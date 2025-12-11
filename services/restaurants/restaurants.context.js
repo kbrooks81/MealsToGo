@@ -1,4 +1,3 @@
-// services/restaurants/restaurants.context.js
 import React, { createContext, useState, useEffect } from "react";
 import { restaurantsRequest, restaurantsTransform } from "./restaurants.service";
 import { LocationContext } from "../location/location.context";
@@ -22,7 +21,7 @@ export const RestaurantsContextProvider = ({ children }) => {
                 setRestaurants(results);
             })
             .catch((err) => {
-                console.error("MOCK RESTAURANTS ERROR:", err);
+                console.error("RESTAURANTS ERROR:", err);
                 setError(err);
             })
             .finally(() => {

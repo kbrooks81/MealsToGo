@@ -18,6 +18,7 @@ export default function Index() {
         lng: restaurant.geometry.location.lng,
         lat: restaurant.geometry.location.lat,
         name: restaurant.name,
+        id: restaurant.placeId,
       },
     });
   };
@@ -52,7 +53,7 @@ export default function Index() {
                 />
               );
             }}
-            keyExtractor={(item) => item.name}
+            keyExtractor={(item) => item.placeId}
             contentContainerStyle={{ padding: 16 }}
           />
         </View>

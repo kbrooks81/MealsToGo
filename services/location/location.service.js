@@ -1,19 +1,28 @@
 import camelize from "camelize";
-import { locations } from "./location.mock";
+
+const GOOGLE_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 export const locationRequest = (searchTerm) => {
-    return new Promise((resolve, reject) => {
-        const locationMock = locations[searchTerm];
-        if(!locationMock){
-            reject("not found");
-            return;
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+        searchTerm
+    )}&key=${GOOGLE_API_KEY}`;
+
+    return fetch(url).then((res) => {
+        if (!res.ok) {
+            throw new Error("Network error while fetching location");
         }
-        resolve(locationMock);
-    })
+
+        return res.json();
+    });
 };
 
 export const locationTransform = (result) => {
     const formattedResponse = camelize(result);
+
+    if (!formattedResponse.results || formattedResponse.results.length === 0) {
+        throw new Error("No results found for the given location");
+    }
+    
     const {geometry = {}} = formattedResponse.results[0];
     const { lat, lng } = geometry.location;
 

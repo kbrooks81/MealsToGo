@@ -13,12 +13,14 @@ export default function MapScreen() {
     lat?: string;
     lng?: string;
     name?: string;
+    id?: string;
   }>();
 
   const selectedLat = params.lat ? Number(params.lat) : NaN;
   const selectedLng = params.lng ? Number(params.lng) : NaN;
   const selectedName =
     typeof params.name === "string" ? params.name : "Selected restaurant";
+  const selectedId = typeof params.id === "string" ? params.id : "";
 
   const hasSelectedRestaurant =
     Number.isFinite(selectedLat) && Number.isFinite(selectedLng);
@@ -57,14 +59,14 @@ export default function MapScreen() {
   const markers = hasSelectedRestaurant
     ? [
         {
-          key: selectedName,
+          key: selectedId,
           latitude: selectedLat,
           longitude: selectedLng,
           name: selectedName,
         },
       ]
     : restaurants.map((restaurant: any) => ({
-        key: restaurant.name,
+        key: restaurant.id,
         latitude: restaurant.geometry.location.lat,
         longitude: restaurant.geometry.location.lng,
         name: restaurant.name,

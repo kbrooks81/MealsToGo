@@ -66,7 +66,7 @@ export default function MapScreen() {
         },
       ]
     : restaurants.map((restaurant: any) => ({
-        key: restaurant.id,
+        key: restaurant.placeId,
         latitude: restaurant.geometry.location.lat,
         longitude: restaurant.geometry.location.lng,
         name: restaurant.name,

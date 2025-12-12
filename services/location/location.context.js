@@ -3,14 +3,15 @@ import {
     locationRequest, 
     locationTransform, 
     locationAutocompleteRequest, 
-    locationAutocompleteTranform 
+    locationAutocompleteTransform,
+    locationByPlaceIdRequest, 
 } from "./location.service";
 
 export const LocationContext = createContext();
 
 export const LocationContextProvider = ({ children }) => {
     const [keyword, setKeyword] = useState("");
-    const [location, setLocation] = useState([]);
+    const [location, setLocation] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -25,14 +26,14 @@ export const LocationContextProvider = ({ children }) => {
         }
 
         setIsLoading(true);
-        setKeyword(searchKeyword);
-        locationRequest(searchKeyword.toLowerCase().trim())
+        setKeyword(trimmed);
+        locationRequest(trimmed.toLowerCase())
             .then(locationTransform)
             .then((result) => {
                 setLocation(result);
             })
             .catch((err) => {
-                console.error("MOCK LOCATION ERROR:", err);
+                console.error("LOCATION ERROR:", err);
                 setError(err);
             })
             .finally(() => {
@@ -54,7 +55,7 @@ export const LocationContextProvider = ({ children }) => {
 
         autocompleteTimeout.current = setTimeout(() => {
             locationAutocompleteRequest(text)
-                .then(locationAutocompleteTranform)
+                .then(locationAutocompleteTransform)
                 .then((results) => {
                     setSuggestions(results);
                 })
@@ -63,6 +64,22 @@ export const LocationContextProvider = ({ children }) => {
                 });
         }, 400);
     };
+
+    const onSelectSuggestion = (suggestion) => {
+        setKeyword(suggestion.description);
+        clearSuggestions();
+
+        setIsLoading(true);
+        locationByPlaceIdRequest(suggestion.id)
+            .then(locationTransform)
+            .then((result) => setLocation(result))
+            .catch((err) => {
+            console.error("LOCATION ERROR:", err);
+            setError(err);
+            })
+            .finally(() => setIsLoading(false));
+    };
+
 
     const clearSuggestions = () => setSuggestions([]);
 
@@ -77,6 +94,7 @@ export const LocationContextProvider = ({ children }) => {
                 suggestions,
                 onChangeSearchText,
                 clearSuggestions,
+                onSelectSuggestion,
             }}
         >
             {children}

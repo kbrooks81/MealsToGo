@@ -11,6 +11,7 @@ export default function SearchBar() {
       suggestions,
       onChangeSearchText,
       clearSuggestions,
+      onSelectSuggestion,
     } = React.useContext(LocationContext);
 
     const [searchQuery, setSearchQuery] = useState(keyword);
@@ -32,7 +33,7 @@ export default function SearchBar() {
 
     const handleSelectSuggestion = (suggestion: { id: string; description: string }) => {
       clearSuggestions();
-      search(suggestion.description);
+      onSelectSuggestion(suggestion);
     };
     
   return (
@@ -55,7 +56,7 @@ export default function SearchBar() {
             <TouchableOpacity
               key={s.id}
               onPress={() => handleSelectSuggestion(s)}
-              style={{ paddingVertical: 8, paddingHorizontal: 12 }}
+              className='py-2 px-3'
             >
               <Text>{s.description}</Text>
             </TouchableOpacity>

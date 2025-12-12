@@ -44,7 +44,7 @@ export const locationAutocompleteRequest = (input) => {
     });
 };
 
-export const locationAutocompleteTranform = (result) => {
+export const locationAutocompleteTransform = (result) => {
     const formatted = camelize(result);
     const predictions = formatted.predictions ?? [];
 
@@ -52,4 +52,15 @@ export const locationAutocompleteTranform = (result) => {
         id: p.placeId,
         description: p.description,
     }));
+};
+
+export const locationByPlaceIdRequest = (placeId) => {
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?place_id=${encodeURIComponent(
+    placeId
+  )}&key=${GOOGLE_API_KEY}`;
+
+  return fetch(url).then((res) => {
+    if (!res.ok) throw new Error("Network error while fetching place_id geocode");
+    return res.json();
+  });
 };

@@ -6,19 +6,22 @@ import RestaurantInfoCard from "@/components/RestaurantInfoCard";
 import SearchBar from "@/components/SearchBar";
 import { ActivityIndicator } from "react-native-paper";
 import { useRouter } from "expo-router";
+import { LocationContext } from "@/services/location/location.context";
 
 export default function Index() {
   const { isLoading, restaurants } = useContext(RestaurantsContext);
+  const { cityKey } = useContext(LocationContext);
   const router = useRouter();
 
   const handleRestaurantPress = (restaurant: any) => {
     router.push({
       pathname: "/(tabs)/maps",
       params: {
-        lng: restaurant.geometry.location.lng,
-        lat: restaurant.geometry.location.lat,
+        lng: String(restaurant.geometry.location.lng),
+        lat: String(restaurant.geometry.location.lat),
         name: restaurant.name,
         id: restaurant.placeId,
+        cityKey: String(cityKey),
       },
     });
   };

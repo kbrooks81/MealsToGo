@@ -20,20 +20,20 @@ export default function RootLayout() {
 
   return (
     <>
-      <AuthContextProvider>
-        <LocationContextProvider>
-          <RestaurantsContextProvider>
-            <SafeAreaProvider>
+      <SafeAreaProvider>
+        <AuthContextProvider>
+          <LocationContextProvider>
+            <RestaurantsContextProvider>
               <Stack
                 screenOptions={{
                   headerShown: false,
                 }}
               />
-            </SafeAreaProvider>
-          </RestaurantsContextProvider>
-          <StatusBar style="dark" />
-        </LocationContextProvider>
-      </AuthContextProvider>
+            </RestaurantsContextProvider>
+            <StatusBar style="dark" />
+          </LocationContextProvider>
+        </AuthContextProvider>
+      </SafeAreaProvider>
     </>
   );
 }
